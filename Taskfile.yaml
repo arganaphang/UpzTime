@@ -1,0 +1,19 @@
+version: '3'
+dotenv: [".env"]
+tasks:
+  run:uptime:
+    cmds:
+      - go run ./cmd/uptime
+    silent: true
+  run:server:
+    cmds:
+      - go run ./cmd/server
+    silent: true
+  container:build:
+    cmds:
+      - docker build . -t uptime:latest
+    silent: true
+  container:run:
+    cmds:
+      - echo "Running uptime container" # TODO: update this into docker run
+    silent: true
