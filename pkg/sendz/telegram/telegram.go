@@ -23,7 +23,7 @@ func New(token string, chatID int64) (*Provider, error) {
 	}, nil
 }
 
-func (p Provider) Send(ctx context.Context, err error) error {
-	p.bot.Send(api.NewMessage(p.chatID, err.Error()))
-	return nil
+func (p Provider) Send(ctx context.Context, msg string) error {
+	_, err := p.bot.Send(api.NewMessage(p.chatID, msg))
+	return err
 }

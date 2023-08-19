@@ -44,15 +44,16 @@ func main() {
 		res, _ := c.R().Get(endpoint)
 		// failed
 		if res.StatusCode() != http.StatusOK && last {
-			log.Printf("%s service is UNHEALTHY\n", endpoint)
+			log.Printf("%s service is DOWN\n", endpoint)
 			last = false
-			t.Send(ctx, fmt.Errorf("%s service unavaiable", endpoint))
+			t.Send(ctx, fmt.Sprintf("%s service DOWN", endpoint))
 			return
 		}
 		// success
 		if res.StatusCode() == http.StatusOK && !last {
-			log.Printf("%s service is HEALTHY\n", endpoint)
+			log.Printf("%s service is UP\n", endpoint)
 			last = true
+			t.Send(ctx, fmt.Sprintf("%s service UP", endpoint))
 		}
 	})
 
